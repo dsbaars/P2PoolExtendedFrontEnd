@@ -1,13 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-    <head>
-        <title>P2Pool Share</title>
+ <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <title>P2Pool - Share</title>
         <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script type="text/javascript" src="d3.v2.min.js"></script>
+        <script src="js/bootstrap.js"></script>
+
+        <style>
+            body { padding-top: 70px; }
+        
+            line {
+                stroke: black;
+                stroke-width: 1;
+                shape-rendering: crispEdges;
+            }
+            
+            .plotline {
+                stroke-width: 1.4;
+                fill: none;
+            }
+
+        </style>
+        <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+
     </head>
     <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">[<span class="symbol upper"></span>] P2Pool</a>
+        </div>
+        <ul class="nav navbar-nav">
+              <li><a href="index.html">Back to main interface</a></li>
+        </ul>
+    </nav>
+
+    <div class="container" id="container">
         <p>Loading...</p>
+    </div>
         <script type="text/javascript">
             function hex2a(hex) {
                 var str = '';
@@ -26,10 +59,10 @@
                 if(share_hash == current_hash) return;
                 d3.json('/web/share/' + share_hash, function(share) {
                     current_hash = share_hash;
-                    var b = d3.select('body');
+                    var b = d3.select('#container');
                     b.selectAll('*').remove();
                     var h1 = b.append('h1');
-                        h1.append('a').attr('href', '/static/').text('P2Pool');
+                        h1.append('a').attr('href', 'index.html').text('P2Pool');
                         h1.append('span').text(' > Share ');
                         h1.append('a').attr('href', '#' + share_hash).text(share_hash.substr(-8));
                     if(share == null) {
@@ -79,9 +112,10 @@
             }
             
             d3.json('/web/currency_info', function(currency_info) {
+                d3.selectAll('.symbol').text(currency_info.symbol);
                 reload(currency_info);
                 setInterval(function(){ reload(currency_info) }, 100);
-            });
+            });                
         </script>
     </body>
 </html>
