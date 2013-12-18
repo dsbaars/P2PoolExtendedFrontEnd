@@ -1,7 +1,7 @@
-P2PoolExtendFrontEnd
+P2PoolImprovedFrontEnd
 ====================
 
-Extended front end web interface for p2pool
+Improved version of P2PoolExtendedFrontend
 
 How install
 ====================
